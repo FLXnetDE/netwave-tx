@@ -59,10 +59,13 @@ def audio_receiver():
     while True:
         try:
             packet, _ = sock.recvfrom(4096)
-            if len(packet) > 4:
+            if len(packet) > 8:
                 recv_channel, = struct.unpack("!I", packet[:4])
                 if recv_channel == CHANNEL_ID:
-                    stream.write(packet[4:])
+                    stream.write(packet[8:])
+
+                    # recv_client_id, = struct.unpack("!I", packet[4:8])
+                    # print(f"[Receiver] Receiving data from client ID = {recv_client_id}")
         except ConnectionResetError:
             print(f"[Receiver] Could not read packet to remote host (ConnectionResetError)")
 
