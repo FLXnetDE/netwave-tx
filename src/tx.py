@@ -6,7 +6,8 @@ import struct
 import time
 
 # Configuration
-CHANNEL_ID = 1
+CLIENT_ID = 1999
+CHANNEL_ID = 10
 UDP_IP = "127.0.0.1"
 UDP_PORT = 5000
 PUSH_TO_TALK_KEY = "space"
@@ -40,7 +41,7 @@ def audio_sender():
         if is_talking.is_set():
             try:
                 data = stream.read(CHUNK, exception_on_overflow=False)
-                packet = struct.pack("!I", CHANNEL_ID) + data
+                packet = struct.pack("!I", CHANNEL_ID) + struct.pack("!I", CLIENT_ID) + data
                 sock.sendto(packet, (UDP_IP, UDP_PORT))
             except ConnectionResetError:
                 print(f"[Sender] Could not send packet to remote host (ConnectionResetError)")
