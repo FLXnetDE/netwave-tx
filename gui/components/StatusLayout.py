@@ -14,7 +14,7 @@ class StatusLayout(QHBoxLayout):
     def set_tx(self, state: bool):
         state_info = self.state_info(state)
         self.tx_label.setText(f"TX: {state_info['text']}")
-        # self.tx_label.setStyleSheet(f"color: {state_info['color']}")
+        self.tx_label.setStyleSheet(f"color: {state_info['color']}")
 
     def set_rx(self, state: bool):
         state_info = self.state_info(state)
@@ -22,13 +22,7 @@ class StatusLayout(QHBoxLayout):
         # self.rx_label.setStyleSheet(f"color: {state_info['color']}")
 
     def state_info(self, state: bool) -> dict[str, str]:
-        if (state):
-            return {
-                "text": 'ON',
-                "color": 'green'
-            }
-        if (not state):
-            return {
-                "text": 'OFF',
-                "color": 'red'
-            }
+        return {
+            "text": "ON" if state else "OFF",
+            "color": "green" if state else "red"
+        }

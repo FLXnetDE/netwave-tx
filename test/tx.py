@@ -43,8 +43,8 @@ def audio_sender():
                 data = stream.read(CHUNK, exception_on_overflow=False)
                 packet = struct.pack("!I", CHANNEL_ID) + struct.pack("!I", CLIENT_ID) + data
                 sock.sendto(packet, (UDP_IP, UDP_PORT))
-            except ConnectionResetError:
-                print(f"[Sender] Could not send packet to remote host (ConnectionResetError)")
+            except Exception as err:
+                print(f"[Sender] Could not send packet to remote host :: {err}")
         else:
             time.sleep(0)
 
@@ -66,8 +66,8 @@ def audio_receiver():
 
                     # recv_client_id, = struct.unpack("!I", packet[4:8])
                     # print(f"[Receiver] Receiving data from client ID = {recv_client_id}")
-        except ConnectionResetError:
-            print(f"[Receiver] Could not read packet to remote host (ConnectionResetError)")
+        except Exception as err:
+            print(f"[Receiver] Could not read packet to remote host :: {err}")
 
 def push_to_talk_monitor():
     print(f"[PTT] Hold '{PUSH_TO_TALK_KEY}' to talk")
