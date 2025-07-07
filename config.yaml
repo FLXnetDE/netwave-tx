@@ -1,0 +1,5 @@
+ClientId: 99
+ChannelId: 10
+SocketServerAddress: 127.0.0.1
+SocketServerPort: 5000
+PushToTalkKey: space
